@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 
-export default function MovieList() {
+
+export default function MovieList(props) {
 
     const [movies,setMovies] = useState([]);
 
@@ -18,14 +19,24 @@ export default function MovieList() {
 
     }, []);
 
+    const movieclicked = (movie) => {
+        props.navigation.navigate("Detail", {movie:movie})
+    }
+
   return (
     <View>
+        <Image source={require("../assets/MR_logo.png")}
+        style={{width:"100%", height: 135, paddingTop:30}}
+        resizeMode="contain"/>
+
         <FlatList 
             data={movies}
             renderItem={({item}) =>(
-                <View style={styles.item}>
-                    <Text style={styles.itemText}>{item.title}</Text>
-                </View>
+                <TouchableOpacity onPress={()=> movieclicked(item)}>
+                    <View style={styles.item}>
+                        <Text style={styles.itemText}>{item.title}</Text>
+                    </View>
+                </TouchableOpacity>
             )}
             keyExtractor={(item,index) => index.toString()}
         />

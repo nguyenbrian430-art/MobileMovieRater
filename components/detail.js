@@ -1,16 +1,26 @@
-import React, {useState, useEffect} from "react";
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import React, {useState, useEffect, useLayoutEffect} from "react";
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
-export default function Detail() {
+
+
+export default function Detail({navigation,route}) {
 
     const {params}= useRoute();
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+          title: params.movie.title,
+          headerRight: () => (<Button title="edit" color="white" onPress={()=> navigation.navigate("Edit", {movie:params.movie})}/>),
+          headerStyle:{backgroundColor:"orange",},
+          headerTintColor: "white",
+        });
+      }, [navigation, params.movie.title]);
+
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>{params.movie.title}</Text>
         <View style={styles.starContainer}>
             <FontAwesomeIcon style={params.movie.avg_rating>0 ? styles.orange : styles.white} icon={faStar}/>
             <FontAwesomeIcon style={params.movie.avg_rating>1 ? styles.orange : styles.white} icon={faStar}/>
@@ -25,7 +35,6 @@ export default function Detail() {
   );
 }
 
-Detail.navigation
 
 const styles = StyleSheet.create({
   container: {
@@ -60,12 +69,6 @@ const styles = StyleSheet.create({
     color:"white",
     padding:10,
   },
-  title:{
-    fontSize:50,
-    color:"white",
-    textAlign:"center",
-  },
-
 
     
 

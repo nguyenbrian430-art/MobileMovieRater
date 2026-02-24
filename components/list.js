@@ -24,7 +24,7 @@ export default function MovieList(props) {
     }
 
   return (
-    <View>
+    <View style={styles.container}>
         <Image source={require("../assets/MR_logo.png")}
         style={{width:"100%", height: 135, paddingTop:30}}
         resizeMode="contain"/>
@@ -49,16 +49,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     color:"black",
-    backgroundColor: '#fff',
+    backgroundColor: '#282C35',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop:60,
   },
   item: {
     flex:1,
     padding: 10,
-    height: 50,
-    backgroundColor: "#282C35"
+    height: 60,
+    backgroundColor: "#282C35",
+    borderWidth:5,
+    marginTop:5,
+    
   },
   itemText: {
     color:"#fff",

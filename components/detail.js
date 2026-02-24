@@ -6,33 +6,33 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function Detail() {
 
-    const {name,params}= useRoute();
+    const {params}= useRoute();
 
   return (
-    <View>
-        <Text>Details about {params.movie.title}</Text>
+    <View style={styles.container}>
+        <Text style={styles.title}>{params.movie.title}</Text>
         <View style={styles.starContainer}>
             <FontAwesomeIcon style={params.movie.avg_rating>0 ? styles.orange : styles.white} icon={faStar}/>
             <FontAwesomeIcon style={params.movie.avg_rating>1 ? styles.orange : styles.white} icon={faStar}/>
             <FontAwesomeIcon style={params.movie.avg_rating>2 ? styles.orange : styles.white} icon={faStar}/>
             <FontAwesomeIcon style={params.movie.avg_rating>3 ? styles.orange : styles.white} icon={faStar}/>
             <FontAwesomeIcon style={params.movie.avg_rating>4 ? styles.orange : styles.white} icon={faStar}/>
-            <Text>({params.movie.no_of_ratings})</Text>
+            <Text style={styles.white}>({params.movie.no_of_ratings})</Text>
         </View>
-        <Text>Description: {params.movie.description}</Text>
+        <Text style={styles.description}>Description: {params.movie.description}</Text>
 
     </View>
   );
 }
 
+Detail.navigation
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     color:"black",
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop:60,
+    backgroundColor: '#282C35',
+    padding: 10,
   },
   item: {
     flex:1,
@@ -55,9 +55,18 @@ const styles = StyleSheet.create({
   white:{
     color:"white"
   },
+  description:{
+    fontSize:20,
+    color:"white",
+    padding:10,
+  },
+  title:{
+    fontSize:50,
+    color:"white",
+    textAlign:"center",
+  },
 
 
-    /test
     
 
 });

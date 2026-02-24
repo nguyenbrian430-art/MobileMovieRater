@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 export default function Detail() {
 
@@ -10,6 +11,16 @@ export default function Detail() {
   return (
     <View>
         <Text>Details about {params.movie.title}</Text>
+        <View style={styles.starContainer}>
+            <FontAwesomeIcon style={params.movie.avg_rating>0 ? styles.orange : styles.white} icon={faStar}/>
+            <FontAwesomeIcon style={params.movie.avg_rating>1 ? styles.orange : styles.white} icon={faStar}/>
+            <FontAwesomeIcon style={params.movie.avg_rating>2 ? styles.orange : styles.white} icon={faStar}/>
+            <FontAwesomeIcon style={params.movie.avg_rating>3 ? styles.orange : styles.white} icon={faStar}/>
+            <FontAwesomeIcon style={params.movie.avg_rating>4 ? styles.orange : styles.white} icon={faStar}/>
+            <Text>({params.movie.no_of_ratings})</Text>
+        </View>
+        <Text>Description: {params.movie.description}</Text>
+
     </View>
   );
 }
@@ -33,5 +44,17 @@ const styles = StyleSheet.create({
     color:"#fff",
     fontSize:24,
   },
+  starContainer:{
+    alignItems:"center",
+    justifyContent:"center",
+    flexDirection:"row",
+  },
+  orange:{
+    color:"orange",
+  },
+  white:{
+    color:"white"
+  },
+
 
 });

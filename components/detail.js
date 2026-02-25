@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useLayoutEffect} from "react";
-import { StyleSheet, Text, View, Button, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Button, Pressable, Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,22 @@ export default function Detail({navigation}) {
     const [ highlight,setHighlight]=useState(0);
 
     const rateClicked = () => {
-      console.log(highlight);
+      if(highlight>0 && highlight<6){
+        fetch(`http://192.168.1.165:8000/api/movies/${params.movie.id}/rate_movie/`, {
+          method: "POST",
+          headers: {
+              "Authorization": `Token 9b2715743b984db9f4b6ae67f0efdfab9b0a453e`,
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({stars:highlight})
+        })
+        .then( res => res.json())
+        .then( res => {
+          setHighlight(0);
+          Alert.alert("Rating", res.message);
+        })
+        .catch( error => Alert.alert("Error", error));
+      }
     }
 
     useLayoutEffect(() => {

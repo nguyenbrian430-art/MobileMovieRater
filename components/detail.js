@@ -13,8 +13,8 @@ export default function Detail({navigation,route}) {
     useLayoutEffect(() => {
         navigation.setOptions({
           title: params.movie.title,
-          headerRight: () => (<Button title="edit" color="white" onPress={()=> navigation.navigate("Edit", {movie:params.movie})}/>),
-          headerStyle:{backgroundColor:"orange",},
+          headerRight: () => (<Button title="Edit" color="white" onPress={()=> navigation.navigate("Edit", {movie:params.movie})}/>),
+          headerLeft: ()=>(<Button title="Back" color="white" onPress={()=> navigation.navigate("MovieList", {movie:params.movie})}/>),
           headerTintColor: "white",
         });
       }, [navigation, params.movie.title]);

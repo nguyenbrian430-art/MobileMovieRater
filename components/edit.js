@@ -9,7 +9,17 @@ export default function Edit({navigation}) {
     const [description,setDescription] = useState(params.movie.description);
 
     const saveMovie = () => {
-        navigation.goBack();
+        fetch(`http://127.0.0.1:8000/api/movies/${params.movie.id}/`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Token 9b2715743b984db9f4b6ae67f0efdfab9b0a453e`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({title:title, description:description})
+        })
+        .then( res => res.json())
+        .then( movie => {navigation.navigate("Detail", {movie:movie})})
+        .catch( error => console.log(error));
     }
 
   return (

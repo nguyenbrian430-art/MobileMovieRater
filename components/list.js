@@ -1,8 +1,17 @@
 import React, {useState, useEffect, useLayoutEffect} from "react";
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Button } from 'react-native';
 
 
-export default function MovieList(props) {
+
+export default function MovieList({navigation}) {
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "List of movies",
+      headerRight: () => (<Button title="Add New" color="white" onPress={()=> navigation.navigate("Edit", {movie:{title:"", description:""}})}/>),
+      headerTintColor: "white",
+    });
+  });
 
     const [movies,setMovies] = useState([]);
 
@@ -20,7 +29,7 @@ export default function MovieList(props) {
     }, []);
 
     const movieclicked = (movie) => {
-        props.navigation.navigate("Detail", {movie:movie})
+        navigation.navigate("Detail", {movie:movie})
     }
 
   return (
@@ -44,6 +53,8 @@ export default function MovieList(props) {
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

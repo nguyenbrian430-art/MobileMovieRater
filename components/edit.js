@@ -9,6 +9,7 @@ export default function Edit({navigation}) {
     const [description,setDescription] = useState(params.movie.description);
 
     const saveMovie = () => {
+      if(params.movie.id){
         fetch(`http://192.168.1.165:8000/api/movies/${params.movie.id}/`, {
             method: "PUT",
             headers: {
@@ -20,6 +21,22 @@ export default function Edit({navigation}) {
         .then( res => res.json())
         .then( movie => {navigation.navigate("Detail", {movie:movie})})
         .catch( error => console.log(error));
+      } else {
+        fetch(`http://192.168.1.165:8000/api/movies/`, {
+          method: "Post",
+          headers: {
+              "Authorization": `Token 9b2715743b984db9f4b6ae67f0efdfab9b0a453e`,
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({title:title, description:description})
+        })
+        .then( res => res.json())
+        .then( movie => {
+
+          navigation.navigate("MovieList")
+        })
+        .catch( error => console.log(error));
+      }
     }
 
   return (
@@ -38,7 +55,7 @@ export default function Edit({navigation}) {
             onChangeText={text => setDescription(text)}
             value={description}
         />
-        <Button onPress={() => saveMovie()} title="Save"/>
+        <Button onPress={() => saveMovie()} title={ params.movie.id ? "Edit" : "Add"}/>
     </View>
   );
 }

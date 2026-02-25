@@ -26,7 +26,7 @@ export default function MovieList({navigation}) {
         .then( jsonRes => setMovies(jsonRes))
         .catch( error => console.log(error));
 
-    }, []);
+    });
 
     const movieclicked = (movie) => {
         navigation.navigate("Detail", {movie:movie})

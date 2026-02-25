@@ -1,8 +1,27 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useLayoutEffect} from "react";
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 export default function Edit({navigation}) {
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (<Button title="Remove" color="white" onPress={()=> removeClicked(params.movie)}/>),
+      headerTintColor: "white",
+    });
+  });
+
+    const removeClicked = (movie) => {
+      fetch(`http://192.168.1.165:8000/api/movies/${params.movie.id}/`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token 9b2715743b984db9f4b6ae67f0efdfab9b0a453e`,
+            "Content-Type": "application/json"
+        }
+      })
+      .then( res => {navigation.navigate("MovieList")})
+      .catch( error => console.log(error));
+    }
 
     const {params}= useRoute();
     const [title,setTitle] = useState(params.movie.title);
